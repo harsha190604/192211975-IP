@@ -1,0 +1,44 @@
+Result Calculator PHP
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result Calculator</title>
+</head>
+<body>
+    <h2>Result Calculator</h2>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="subject1">Subject 1:</label>
+        <input type="number" name="subject1" id="subject1" required><br><br>
+
+        <label for="subject2">Subject 2:</label>
+        <input type="number" name="subject2" id="subject2" required><br><br>
+
+        <label for="subject3">Subject 3:</label>
+        <input type="number" name="subject3" id="subject3" required><br><br>
+
+        <input type="submit" name="calculate" value="Calculate">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $subject1 = $_POST['subject1'];
+        $subject2 = $_POST['subject2'];
+        $subject3 = $_POST['subject3'];
+
+        $total_marks = $subject1 + $subject2 + $subject3;
+        $average = $total_marks / 3;
+
+        echo "<h3>Results</h3>";
+        echo "Total Marks: " . $total_marks . "<br>";
+        echo "Average Marks: " . $average . "<br>";
+
+        if ($average >= 60) {
+            echo "Congratulations! You passed.";
+        } else {
+            echo "Sorry! You did not pass.";
+        }
+    }
+    ?>
+</body>
+</html>
