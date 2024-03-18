@@ -1,0 +1,132 @@
+1.Design Servlets using Java classes which service HTTP requests and implement the Servlet interface and is specially to handle HTTP requests
+
+PROGRAM:
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/hello")
+public class HelloServlet extends HttpServlet {
+
+    private ServletContext context;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        this.context = config.getServletContext();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+
+        String name = request.getParameter("name");
+        if (name == null) {
+            name = "Guest";
+        }
+
+        String message = "Hello, " + name + "!";
+        response.getWriter().println("<html><body><h1>" + message + "</h1></body></html>");
+    }
+
+    @Override
+    public void destroy() {
+       
+    }
+}
+
+
+2.Write a Servlet to take name as request parameter from the user and display Welcome Page to the user with his name (with Get and Post HTTP methods).
+
+PROGRAM:
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/welcome")
+public class WelcomeServlet extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String name = request.getParameter("name");
+
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+
+        if (name != null && !name.isEmpty()) {
+            response.getWriter().println("<html><body>");
+            response.getWriter().println("<h1>Welcome, " + name + "!</h1>");
+            response.getWriter().println("</body></html>");
+        } else {
+            response.getWriter().println("<html><body>");
+            response.getWriter().println("<h1>Welcome, Guest!</h1>");
+            response.getWriter().println("</body></html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+}
+
+
+3.Write a Servlet with doGet method and extract all the request information along with the inputs given by the user in text field, radio button, checkbox and drop down menu.
+
+PROGRAM:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Form</title>
+</head>
+<body>
+    <form action="formHandler" method="get">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label><br><br>
+
+        <label for="hobbies">Hobbies:</label>
+        <input type="checkbox" id="reading" name="hobbies" value="Reading">
+        <label for="reading">Reading</label>
+        <input type="checkbox" id="sports" name="hobbies" value="Sports">
+        <label for="sports">Sports</label><br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
