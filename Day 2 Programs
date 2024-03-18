@@ -1,0 +1,131 @@
+1.Create a html form with a submit button namely 'change' and a paragraph about the college. Write javascript code modify the style of the paragraph text as specified below.
+  • Clicking on the button named change the font, font size, and color of the paragraph text to be changed.
+  • To highlight the bold words of the paragraph, on mouse over a certainword.
+
+PROGRAM:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Text Style</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+    <form id="styleForm">
+        <input type="submit" value="Change" onclick="changeTextStyle()">
+    </form>
+    <p id="collegeInfo">This is a paragraph about the college. It provides information about various programs, faculty, and facilities available.</p>
+
+    <script>
+        function changeTextStyle() {
+            const paragraph = document.getElementById('collegeInfo');
+            paragraph.style.fontFamily = 'Times New Roman';
+            paragraph.style.fontSize = '16px';
+            paragraph.style.color = 'blue';
+            const words = paragraph.innerText.split(' ');
+            paragraph.innerHTML = words.map(word => {
+                return word.startsWith('<strong>') && word.endsWith('</strong>') ?
+                    `<strong onmouseover="highlightBold(this)" onmouseout="removeHighlight(this)">${word.substring(8, word.length - 9)}</strong>` :
+                    word;
+            }).join(' ');
+        }
+
+        function highlightBold(element) {
+            element.style.backgroundColor = 'yellow';
+        }
+
+        function removeHighlight(element) {
+            element.style.backgroundColor = 'transparent';
+        }
+    </script>
+</body>
+</html>
+
+
+2.Create document for an <img> element and append it to the document using JavaScript with the following specifications. 
+when someone clicks on the button then the <img> element created.
+
+PROGRAM:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Append Image Element</title>
+</head>
+<body>
+    <button onclick="createImage()">Create Image</button>
+    
+    <script>
+        function createImage() {
+            const img = document.createElement('img');
+            img.src = 'https://via.placeholder.com/150'; 
+            img.alt = 'Placeholder Image';
+
+            document.body.appendChild(img); 
+        }
+    </script>
+</body>
+</html>
+
+
+3.Write a script to perform the following functions.
+Reads the series of strings and outputs in a text area the string that starts with letter "b"
+Reads the series of string and determine the total number of occurrences of each letter in the given string.
+
+PROGRAM:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>String Operations</title>
+</head>
+<body>
+    <label for="inputStrings">Enter series of strings:</label>
+    <input type="text" id="inputStrings">
+    <button onclick="findStringsStartingWithB()">Find Strings Starting with 'b'</button>
+    <br><br>
+    <textarea id="outputTextArea" rows="5" cols="50" readonly></textarea>
+    <br><br>
+    <button onclick="countOccurrences()">Count Occurrences of Each Letter</button>
+
+    <script>
+        function findStringsStartingWithB() {
+            const inputStrings = document.getElementById('inputStrings').value.trim().split(' ');
+            const stringsStartingWithB = inputStrings.filter(str => str.toLowerCase().startsWith('b'));
+
+            const outputTextArea = document.getElementById('outputTextArea');
+            outputTextArea.value = stringsStartingWithB.join('\n');
+        }
+
+        function countOccurrences() {
+            const inputString = document.getElementById('inputStrings').value.trim().toLowerCase();
+            const letterCounts = {};
+
+            for (let i = 0; i < inputString.length; i++) {
+                const char = inputString[i];
+                if (char.match(/[a-z]/)) {
+                    letterCounts[char] = (letterCounts[char] || 0) + 1;
+                }
+            }
+
+            let countOutput = '';
+            for (const [letter, count] of Object.entries(letterCounts)) {
+                countOutput += `${letter}: ${count}\n`;
+            }
+
+            alert('Occurrences of each letter:\n\n' + countOutput);
+        }
+    </script>
+</body>
+</html>
+
