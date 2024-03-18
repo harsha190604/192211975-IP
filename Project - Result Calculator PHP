@@ -1,0 +1,62 @@
+<?php
+// Function to calculate grade based on marks
+function calculateGrade($marks) {
+    if ($marks >= 90) {
+        return 'A';
+    } elseif ($marks >= 80) {
+        return 'B';
+    } elseif ($marks >= 70) {
+        return 'C';
+    } elseif ($marks >= 60) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}
+
+// Check if form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get marks from form
+    $subject1 = $_POST['subject1'];
+    $subject2 = $_POST['subject2'];
+    $subject3 = $_POST['subject3'];
+
+    // Calculate total marks and average
+    $totalMarks = $subject1 + $subject2 + $subject3;
+    $averageMarks = $totalMarks / 3;
+
+    // Calculate grade for average marks
+    $grade = calculateGrade($averageMarks);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+</head>
+<body>
+    <h1>Grade Calculator</h1>
+    <form method="POST">
+        <label for="subject1">Subject 1 Marks:</label>
+        <input type="number" name="subject1" required><br>
+
+        <label for="subject2">Subject 2 Marks:</label>
+        <input type="number" name="subject2" required><br>
+
+        <label for="subject3">Subject 3 Marks:</label>
+        <input type="number" name="subject3" required><br>
+
+        <input type="submit" value="Calculate Grade">
+    </form>
+
+    <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') : ?>
+        <h2>Result:</h2>
+        <p>Total Marks: <?php echo $totalMarks; ?></p>
+        <p>Average Marks: <?php echo $averageMarks; ?></p>
+        <p>Grade: <?php echo $grade; ?></p>
+    <?php endif; ?>
+</body>
+</html>
