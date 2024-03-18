@@ -1,0 +1,85 @@
+1.creates a Php script that checks whether cookies are enabled.
+creates a Php script that modifies the cookie values.
+
+PROGRAM:
+
+PHP script to check if cookies are enabled:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Cookies</title>
+</head>
+<body>
+<?php
+if(count($_COOKIE) > 0) {
+    echo "<h1>Cookies are enabled in your browser.</h1>";
+} else {
+    echo "<h1>Cookies are disabled in your browser.</h1>";
+}
+?>
+</body>
+</html>
+
+PHP script to modify cookie values:
+setcookie('user', 'John Doe', time() + 3600, '/');
+setcookie('user', 'Jane Smith', time() + 3600, '/');
+setcookie('user', '', time() - 3600, '/');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modify Cookies</title>
+</head>
+<body>
+<h1>Cookie Modified</h1>
+<p>Refresh the page to see the changes in the cookie value.</p>
+</body>
+</html>
+
+
+2.Write PHP script named states.php that creates a variable $states with the value "Mississippi, Alabama, Massachusetts kansas". The script should perform the following task
+(a) Search for word in Sstates that ends in xas.
+(b) Search the word that begins with M and ends with s.
+(c) Output the array $statesArray to the screen.
+
+PROGRAM:
+
+<?php
+$states = "Mississippi, Alabama, Massachusetts, Kansas";
+
+preg_match_all('/\b\w*xas\b/', $states, $matches1);
+$wordsEndingInXas = implode(', ', $matches1[0]);
+
+preg_match_all('/\bM\w+s\b/', $states, $matches2);
+$wordsStartingWithMAndEndingInS = implode(', ', $matches2[0]);
+
+$statesArray = explode(', ', $states);
+
+echo "<h2>Results:</h2>";
+echo "<p>Words ending in 'xas': $wordsEndingInXas</p>";
+echo "<p>Words starting with 'M' and ending with 's': $wordsStartingWithMAndEndingInS</p>";
+echo "<p>States array: </p><pre>";
+print_r($statesArray);
+echo "</pre>";
+?>
+
+
+3.Write Php Program to create/Retrieve a cookie with the following condition Cookie named "user" with the value "John" Cookie will expire after 30 days.
+
+PROGRAMS:
+
+<?php
+setcookie('user', 'John', time() + (30 * 24 * 60 * 60), '/');
+$user = isset($_COOKIE['user']) ? $_COOKIE['user'] : 'Guest';
+echo "<h1>Welcome, $user!</h1>";
+if (isset($_COOKIE['user'])) {
+    echo "<p>Your cookie 'user' with value '$user' is set.</p>";
+} else {
+    echo "<p>Your cookie 'user' is not set.</p>";
+}
+?>
+
+
